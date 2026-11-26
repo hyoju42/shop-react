@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addCount, addItem, sortName } from '../features/cartSlice'
 import { changeName, increase } from '../features/userSlice'
 
-
 const Cart = () => {
     const {name, age} = useSelector(state => state.user)
     const cart = useSelector(state => state.cart)
@@ -27,7 +26,6 @@ const Cart = () => {
                     </button>
                 </div>
             </div>
-
             <div className="max-w-7xl mx-auto px-4 w-full py-8">
                 <div className="border border-gray-200 mb-5">
                     <table className="min-w-full divide-y divide-gray-200 text-left text-gray-500">
@@ -44,7 +42,11 @@ const Cart = () => {
                                 cart.map(item =>
                                     <tr className="hover:bg-gray-50 transition-colors" key={item.id}>
                                 <td className="px-6 py-4 text-gray-400 font-normal"> {item.id}</td>
+                                <td>
+                                    <img src={import.meta.env.BASE_URL + item.imgUrl} alt="상품이미지" width="100px" />
+                                </td>
                                 <td className="px-6 py-4 font-semibold text-gray-900">{item.item}</td>
+                                <td>{item.price.toLocaleString()}원</td>
                                 <td className="px-6 py-4">
                                     <span className="bg-gray-100 text-gray-800 text-xs px-2.5 py-1 rounded-full font-bold">{item.amount}개</span>
                                 </td>
@@ -68,24 +70,8 @@ const Cart = () => {
                     </button>
                 </div>
             </div>
-
-            <Order />
         </>
   )
-}
-
-const Order = ()=>{
-    const dispatch = useDispatch();
-    return (
-      <div className="max-w-7xl mx-auto px-4 w-full py-8">
-            <h4 className="text-2xl font-bold text-gray-900 tracking-tight mb-6">
-                주문하기 페이지
-            </h4>
-            <button className="w-xs bg-green-500 hover:bg-green-600 text-white font-semibold text-base py-3.5 px-6 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg active:scale-98 transform flex items-center justify-center gap-2" onClick={()=>dispatch(addItem({id:4, item:"오렌지", amount: 1}))}>
-                오렌지 주문하기
-            </button>
-        </div>
-   )
 }
 
 export default Cart
